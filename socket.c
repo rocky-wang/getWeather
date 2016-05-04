@@ -38,8 +38,6 @@ int create_tcp_client(const char *ip,unsigned short port)
 		return -1;
 	}
 	
-	INFO("TCP connect %s success!\n",ip);
-	
 	return sockfd;
 }
 
@@ -56,8 +54,6 @@ int socket_sendnbuf(int sockfd,char *buf,int send_count)
 		}
 		slen += ret;
 	}
-
-	DEBUG_LOG("send %d bytes success!\n",slen);
 
 	return 0;
 }

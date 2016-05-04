@@ -15,12 +15,10 @@ int getAKInfo(const char *filename,void *ak_key,size_t *len)
     
     akfp = fopen(filename, "r");
     if (akfp == NULL) {
-        perror("fopen ak filename");
         return -1;
     }
     
     if (fgets(buf, sizeof(buf), akfp) == NULL) {
-        perror("fread ak file");
         return -1;
     }
     if (buf[strlen(buf) - 1] == '\n') {
@@ -30,14 +28,12 @@ int getAKInfo(const char *filename,void *ak_key,size_t *len)
     
     tmp1 = strstr(buf, "ak=");
     if (tmp1 == NULL) {
-        fprintf(stderr, "Not found ak section!\n");
         return -1;
     }
     tmp1 += 3;
     
     ak_len = strlen(tmp1);
     if (*len < ak_len) {
-        fprintf(stderr, "No space restore for ak key value!\n");
         return -1;
     }
     

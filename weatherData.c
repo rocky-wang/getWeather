@@ -4,6 +4,7 @@
 #include "weatherData.h"
 #include "cJSON.h"
 #include "debug.h"
+#include "erro_code.h"
 
 struct weather_show DayWeathers[NUM_OF_CITY];
 int QueryNums = 0;
@@ -34,20 +35,17 @@ int get_weather_infos(const unsigned char *str)
     // 获取状态
     st = cJSON_GetObjectItem(root, "status");
     if (st->type != cJSON_String) {
-        ERROR("status error info!\n");
-        return -1;
+        return ERROR_UNVALID_AK;
     }
     status = st->valuestring; 
     if ( strncmp(status,"success",7) != 0 ) {
-        ERROR("No correct Data!\n");
-        return -1;
+        return ERROR_UNCITY_NAME;
     }
     
     // 获取结果数组
     result = cJSON_GetObjectItem(root, "results");
     if ( result == NULL ) {
-        ERROR("Not Found Result item.\n");
-        return -1;
+        return ERROR_UNCITY_NAME;
     }
     result_num = cJSON_GetArraySize(result);
     if(result_num >= NUM_OF_CITY){

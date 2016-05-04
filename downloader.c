@@ -28,18 +28,13 @@ int send_http_request(int sockfd,const char *hostname,ushort port,const char *fi
 
 	end_request(request);
 
-	INFO("%s\n",request->request_buf);
-	INFO("request len is %d\n",request->offset);
-
 	ret = socket_sendnbuf(sockfd,request->request_buf,request->offset);
 	if(ret < 0){
-		ERROR("send http request error!\n");
 		close(sockfd);
 		release_http_header(request);
 		return -1;
 	}
 
-	INFO("send http request success!\n");
 	release_http_header(request);
 
 	return 0;
@@ -56,7 +51,7 @@ struct jsonbuf* init_to_jsonbuf(struct http_respond_header *head,unsigned long l
 
     memcpy(p->databuf,head->respond_buf + head->head_part_index,head->offset - head->head_part_index);
 
-    p->offset = head->offset - head->head_part_index;
+    p->offset = (int)(head->offset - head->head_part_index);
     
 	return p;
 }

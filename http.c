@@ -164,7 +164,6 @@ int get_respond_header(int sockfd,struct http_respond_header *head)
 		}
 		head->offset += ret;
 		if((index = strstr(head->respond_buf,"\r\n\r\n")) != NULL){
-			INFO("find respond content index!\n");
 			flags = 2;
 			break;
 		}
