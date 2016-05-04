@@ -61,7 +61,7 @@ struct jsonbuf* init_to_jsonbuf(struct http_respond_header *head,unsigned long l
 	return p;
 }
 
-unsigned long recv_json_data(int sockfd)
+int recv_json_data(int sockfd)
 {
     ssize_t ret;
     char buf[1024];

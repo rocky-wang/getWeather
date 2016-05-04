@@ -26,7 +26,6 @@ int get_weather(const char *url)
 		ERROR("parser url error!\n");
 		return -1;
 	}
-
     // 连接服务器
 	sockfd = create_tcp_client(hostname,port);
 	if(sockfd < 0){
@@ -50,7 +49,7 @@ int get_weather(const char *url)
     
     if(PJson != NULL){
         len = recv_json_data(sockfd);
-        // INFO("the json data is %s\n",pjson->databuf);
+        INFO("the json data len is %d\n",len);
         get_weather_infos(PJson->databuf);
         free_jsonbuf(PJson);
     }
@@ -92,6 +91,7 @@ int main()
 	int ret;
     char *query_string;
     
+    // 只是为了做教学使用而设计的函数，实际开发不需要这样设计
     ret = getAKInfo(NULL, ak_key, &ak_len);
     if (ret < 0) {
         fprintf(stderr, "Can't get AK Key Value!\n");

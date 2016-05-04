@@ -6,7 +6,7 @@
 struct jsonbuf{
     unsigned char *databuf;
     int flags;
-    unsigned long offset;
+    int offset;
 };
 
 struct jsonbuf* create_jsonbuf(unsigned long len);

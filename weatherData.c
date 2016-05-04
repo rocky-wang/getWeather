@@ -20,6 +20,7 @@ int get_weather_infos(const unsigned char *str)
 {
     cJSON *root = NULL;
     cJSON *result = NULL;
+    cJSON *st = NULL;
     cJSON *weathers = NULL;
     cJSON *tmp;
     cJSON *wtmp;
@@ -31,7 +32,12 @@ int get_weather_infos(const unsigned char *str)
     root = cJSON_Parse((char *)str);
     
     // 获取状态
-    status = cJSON_GetObjectItem(root, "status")->valuestring;
+    st = cJSON_GetObjectItem(root, "status");
+    if (st->type != cJSON_String) {
+        ERROR("status error info!\n");
+        return -1;
+    }
+    status = st->valuestring; 
     if ( strncmp(status,"success",7) != 0 ) {
         ERROR("No correct Data!\n");
         return -1;
